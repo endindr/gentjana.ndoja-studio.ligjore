@@ -520,22 +520,22 @@
                 Plotësoni formularin ose na kontaktoni direkt për të kërkuar një konsultë.
             </p>
             <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <form id="contact-form" class="space-y-4">
-                    <div>
-                        <input type="text" id="name" placeholder="Emri i plotë" required class="form-input">
-                    </div>
-                    <div>
-                        <input type="email" id="email" placeholder="Email" required class="form-input">
-                    </div>
-                    <div>
-                        <input type="tel" id="phone" placeholder="Numri i telefonit" class="form-input">
-                    </div>
-                    <div>
-                        <textarea id="message" rows="5" placeholder="Mesazhi juaj..." required class="form-input"></textarea>
-                    </div>
-                    <button type="submit" class="w-full cta-button-modified">Dërgo Mesazhin</button>
-                    <div id="status-message" class="mt-4 text-center hidden"></div>
-                </form>
+                <form id="contact-form" action="https://formspree.io/f/xzzjqpbj" method="POST" class="space-y-4">
+    <div>
+        <input type="text" id="name" name="name" placeholder="Emri i plotë" required class="form-input">
+    </div>
+    <div>
+        <input type="email" id="email" name="email" placeholder="Email" required class="form-input">
+    </div>
+    <div>
+        <input type="tel" id="phone" name="phone" placeholder="Numri i telefonit" class="form-input">
+    </div>
+    <div>
+        <textarea id="message" name="message" rows="5" placeholder="Mesazhi juaj..." required class="form-input"></textarea>
+    </div>
+    <button type="submit" class="w-full cta-button-modified">Dërgo Mesazhin</button>
+    <div id="status-message" class="mt-4 text-center hidden"></div>
+</form>
 
                 <div class="flex flex-col space-y-4 justify-center">
                     <h3 class="text-lg font-semibold text-gray-900 text-center md:text-left">Informacione Kontakti</h3>
@@ -713,3 +713,4 @@
 </body>
 
 </html>
+

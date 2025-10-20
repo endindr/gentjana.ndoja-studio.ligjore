@@ -520,21 +520,20 @@
                 Plotësoni formularin ose na kontaktoni direkt për të kërkuar një konsultë.
             </p>
             <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <form id="contact-form" action="https://formspree.io/f/xzzjqpbj" method="POST" class="space-y-4">
-    <div>
-        <input type="text" id="name" name="name" placeholder="Emri i plotë" required class="form-input">
-    </div>
-    <div>
-        <input type="email" id="email" name="email" placeholder="Email" required class="form-input">
-    </div>
-    <div>
-        <input type="tel" id="phone" name="phone" placeholder="Numri i telefonit" class="form-input">
-    </div>
-    <div>
-        <textarea id="message" name="message" rows="5" placeholder="Mesazhi juaj..." required class="form-input"></textarea>
-    </div>
-    <button type="submit" class="w-full cta-button-modified">Dërgo Mesazhin</button>
-    <div id="status-message" class="mt-4 text-center hidden"></div>
+                <form
+  action="https://formspree.io/f/xvgwngwo"
+  method="POST"
+>
+  <label>
+    Your email:
+    <input type="email" name="email">
+  </label>
+  <label>
+    Your message:
+    <textarea name="message"></textarea>
+  </label>
+  <!-- your other form fields go here -->
+  <button type="submit">Send</button>
 </form>
 
                 <div class="flex flex-col space-y-4 justify-center">
@@ -713,4 +712,5 @@
 </body>
 
 </html>
+
 

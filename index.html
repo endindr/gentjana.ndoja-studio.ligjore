@@ -524,17 +524,22 @@
   action="https://formspree.io/f/mrbyvbje"
   method="POST"
 >
-  <label>
-    Your email:
-    <input type="email" name="email">
-  </label>
-  <label>
-             Your message:
-    <textarea name="message"></textarea>
-  </label>
-  <!-- your other form fields go here -->
-  <button type="submit">Send</button>
+  <form action="/submit-form" method="post" style="padding: 20px; border: 1px solid black; max-width: 400px;">
+  <h2 style="margin-bottom: 20px;">Contact Me (HTML Only)</h2>
+  
+  <div style="margin-bottom: 15px;">
+    <label for="user_email" style="display: block; margin-bottom: 5px; font-weight: bold;">Your email:</label>
+    <input type="email" id="user_email" name="email" required placeholder="Enter your email address" style="width: 90%; padding: 8px; border: 1px solid #999;">
+  </div>
+  
+  <div style="margin-bottom: 20px;">
+    <label for="user_message" style="display: block; margin-bottom: 5px; font-weight: bold;">Your message:</label>
+    <textarea id="user_message" name="message" rows="6" required placeholder="Write your message here" style="width: 90%; padding: 8px; border: 1px solid #999;"></textarea>
+  </div>
+  
+  <button type="submit" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">Send Message</button>
 </form>
+
                 <div class="flex flex-col space-y-4 justify-center">
                     <h3 class="text-lg font-semibold text-gray-900 text-center md:text-left">Informacione Kontakti</h3>
                    

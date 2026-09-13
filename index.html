@@ -178,35 +178,93 @@ h1,h2,h3,.font-display{
   align-items:center; justify-content:center;
 }
 
-/* ---------- Service cards ---------- */
-.service-icon{
-  width:3.25rem; height:3.25rem;
-  border-radius:9999px;
-  display:flex; align-items:center; justify-content:center;
-  border:1px solid var(--gold-soft);
-  background:radial-gradient(circle at 30% 25%, #fff, var(--bg-alt));
-  transition:box-shadow .3s ease, transform .3s ease;
-}
-.service-card:hover .service-icon{
-  box-shadow:0 0 0 6px rgba(184,137,43,0.12);
-  transform:scale(1.05);
-}
-.service-content{
-  max-height:0;
+/* ---------- Service slides ---------- */
+.slides-wrap{
+  position:relative;
+  border-radius:2.25rem;
   overflow:hidden;
-  transition:max-height .45s ease, margin .45s ease;
+  box-shadow:0 24px 50px rgba(20,24,31,.14);
 }
-.chevron-btn{
-  width:2.2rem; height:2.2rem;
+.slides-track{
+  display:flex;
+  transition:transform .65s cubic-bezier(.22,.7,.2,1);
+  touch-action:pan-y;
+}
+.slide{
+  position:relative;
+  min-width:100%;
+  height:26rem;
+  display:flex;
+  align-items:flex-end;
+  overflow:hidden;
+}
+.slide-photo{
+  position:absolute; inset:0;
+  background-size:cover;
+  background-position:center;
+  background-color:transparent;
+}
+.slide::before{
+  content:'';
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.7) 0%, rgba(0,0,0,.28) 45%, rgba(0,0,0,.06) 75%);
+  z-index:0;
+}
+.slide-content, .slide-icon{ position:relative; z-index:1; }
+.slide-icon{
+  position:absolute;
+  right:-2.5rem; bottom:-2.5rem;
+  width:19rem; height:19rem;
+  opacity:.16;
+}
+.slide-icon svg{ width:100%; height:100%; }
+.slide-content{
+  position:relative; z-index:1;
+  padding:2.25rem 2.5rem;
+  color:#fff;
+  max-width:28rem;
+}
+.slide-tag{
+  display:inline-flex; align-items:center;
+  padding:.3rem .9rem;
   border-radius:9999px;
-  border:1px solid var(--line);
-  display:flex; align-items:center; justify-content:center;
-  transition:transform .35s ease, background .3s ease;
-  flex-shrink:0;
+  background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.28);
+  font-size:.72rem;
+  letter-spacing:.02em;
+  margin-bottom:.9rem;
+  backdrop-filter:blur(6px);
 }
-.chevron-btn svg{ transition:transform .35s ease; width:1rem; height:1rem; }
-.chevron-btn.open{ background:var(--ink); border-color:var(--ink); }
-.chevron-btn.open svg{ transform:rotate(180deg); stroke:#fff; }
+.slide-nav{
+  position:absolute; top:50%;
+  transform:translateY(-50%);
+  width:2.75rem; height:2.75rem;
+  border-radius:9999px;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(6px);
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 8px 20px rgba(20,24,31,.16);
+  transition:background .25s ease, transform .25s ease;
+  z-index:2;
+}
+.slide-nav:hover{ background:#fff; transform:translateY(-50%) scale(1.06); }
+.slide-nav.prev{ left:1rem; }
+.slide-nav.next{ right:1rem; }
+.slide-dots{
+  display:flex; justify-content:center; align-items:center;
+  gap:.5rem; margin-top:1.5rem;
+}
+.slide-dot{
+  width:.55rem; height:.55rem;
+  border-radius:9999px;
+  background:var(--line);
+  transition:width .3s ease, background .3s ease;
+  cursor:pointer;
+}
+.slide-dot.active{
+  width:1.75rem;
+  background:var(--gold);
+}
 
 /* ---------- Testimonials ---------- */
 .avatar-ring{
@@ -439,112 +497,95 @@ footer{ background:var(--ink); color:#c7cbd3; }
     </section>
 
     <section id="services" class="my-14 reveal">
-      <h2 class="font-display font-semibold text-3xl md:text-4xl text-center mb-10">Fushat e praktikës</h2>
-      <div class="grid sm:grid-cols-2 gap-5">
+      <h2 class="font-display font-semibold text-3xl md:text-4xl text-center mb-3">Fushat e praktikës</h2>
+      <p class="text-center text-sm mb-10 max-w-md mx-auto" style="color:var(--ink-soft);">Kaloni nëpër fushat tona, ose prekni dhe rrëshqisni në telefon.</p>
 
-        <div class="service-card panel p-6">
-          <div class="flex items-center justify-between gap-4 cursor-pointer" onclick="toggleDetails(this)">
-            <div class="flex items-center gap-4">
-              <span class="service-icon">
-                <svg class="w-6 h-6" fill="none" stroke="var(--gold)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M12 3v18M5 8l-3 6a3 3 0 006 0l-3-6zm14 0l-3 6a3 3 0 006 0l-3-6zM5 8h14M8 3h8"/></svg>
-              </span>
-              <h3 class="font-display font-semibold text-xl">Çështjet civile</h3>
-            </div>
-            <span class="chevron-btn" data-arrow>
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      <div class="slides-wrap">
+        <div class="slides-track" id="slidesTrack">
+
+          <div class="slide" style="background:linear-gradient(135deg,#1f2937,#3a4658);">
+            <div class="slide-photo" style="background-image:url('');"></div>
+            <span class="slide-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M5 8l-3 6a3 3 0 006 0l-3-6zm14 0l-3 6a3 3 0 006 0l-3-6zM5 8h14M8 3h8"/></svg>
             </span>
+            <div class="slide-content">
+              <span class="slide-tag">01 · Fusha e praktikës</span>
+              <h3 class="font-display font-semibold text-2xl md:text-3xl mb-2">Çështjet civile</h3>
+              <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,.85);">Ndihmë në mosmarrëveshje civile: borxhe të papaguara, kërkesa për dëmshpërblim dhe interpretim apo zgjidhje kontratash. Përfaqësim në çdo fazë të procesit gjyqësor.</p>
+            </div>
           </div>
-          <div class="service-content">
-            <p class="text-sm pt-4 leading-relaxed" style="color:var(--ink-soft);">Zgjidhje ligjore për mosmarrëveshje civile: borxhe, dëme dhe interpretim kontratash.</p>
+
+          <div class="slide" style="background:linear-gradient(135deg,#5a3a2e,#b8892b);">
+            <div class="slide-photo" style="background-image:url('');"></div>
+            <span class="slide-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21C7 17 3 13.5 3 9.5A4.5 4.5 0 0112 7a4.5 4.5 0 019 2.5C21 13.5 17 17 12 21z"/></svg>
+            </span>
+            <div class="slide-content">
+              <span class="slide-tag">02 · Fusha e praktikës</span>
+              <h3 class="font-display font-semibold text-2xl md:text-3xl mb-2">Çështjet familjare</h3>
+              <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,.85);">Asistencë e plotë dhe njerëzore në procedura divorci, ndarje pasurie dhe kujdestari fëmijësh, gjithmonë me kujdesin që kërkojnë çështjet familjare.</p>
+            </div>
           </div>
+
+          <div class="slide" style="background:linear-gradient(135deg,#0f2a3d,#2563eb);">
+            <div class="slide-photo" style="background-image:url('');"></div>
+            <span class="slide-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M4 21V9l8-6 8 6v12M9 21v-6h6v6"/></svg>
+            </span>
+            <div class="slide-content">
+              <span class="slide-tag">03 · Fusha e praktikës</span>
+              <h3 class="font-display font-semibold text-2xl md:text-3xl mb-2">Çështjet administrative</h3>
+              <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,.85);">Përfaqësim profesional në marrëdhëniet me institucionet shtetërore, duke garantuar respektimin dhe mbrojtjen e të drejtave tuaja administrative.</p>
+            </div>
+          </div>
+
+          <div class="slide" style="background:linear-gradient(135deg,#241417,#7c2d3d);">
+            <div class="slide-photo" style="background-image:url('');"></div>
+            <span class="slide-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2l2.4 6.5L21 9l-5 4.3L17.5 20 12 16.5 6.5 20 8 13.3 3 9l6.6-.5z"/></svg>
+            </span>
+            <div class="slide-content">
+              <span class="slide-tag">04 · Fusha e praktikës</span>
+              <h3 class="font-display font-semibold text-2xl md:text-3xl mb-2">Veprat penale</h3>
+              <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,.85);">Mbrojtje e fortë kundër akuzave penale, si vjedhja, mashtrimi apo dëmtimi i pronës, në çdo shkallë gjykimi.</p>
+            </div>
+          </div>
+
+          <div class="slide" style="background:linear-gradient(135deg,#1e2530,#b8892b);">
+            <div class="slide-photo" style="background-image:url('');"></div>
+            <span class="slide-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3v18h18M7 15l4-4 3 3 5-6"/></svg>
+            </span>
+            <div class="slide-content">
+              <span class="slide-tag">05 · Fusha e praktikës</span>
+              <h3 class="font-display font-semibold text-2xl md:text-3xl mb-2">Prokurime publike</h3>
+              <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,.85);">Këshillim i specializuar gjatë procedurave të prokurimit publik, duke siguruar pajtueshmëri të plotë me ligjin dhe rezultate të favorshme.</p>
+            </div>
+          </div>
+
+          <div class="slide" style="background:linear-gradient(135deg,#221a3d,#7c6ff0);">
+            <div class="slide-photo" style="background-image:url('');"></div>
+            <span class="slide-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7h18v13H3V7zm0 0l3-4h12l3 4M9 11a3 3 0 006 0"/></svg>
+            </span>
+            <div class="slide-content">
+              <span class="slide-tag">06 · Fusha e praktikës</span>
+              <h3 class="font-display font-semibold text-2xl md:text-3xl mb-2">E drejta e punës</h3>
+              <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,.85);">Këshilla të qarta për kontrata pune, shkarkime dhe zgjidhjen e konflikteve në vendin e punës, për punëdhënës dhe punëmarrës.</p>
+            </div>
+          </div>
+
         </div>
 
-        <div class="service-card panel p-6">
-          <div class="flex items-center justify-between gap-4 cursor-pointer" onclick="toggleDetails(this)">
-            <div class="flex items-center gap-4">
-              <span class="service-icon">
-                <svg class="w-6 h-6" fill="none" stroke="var(--gold)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M12 21C7 17 3 13.5 3 9.5A4.5 4.5 0 0112 7a4.5 4.5 0 019 2.5C21 13.5 17 17 12 21z"/></svg>
-              </span>
-              <h3 class="font-display font-semibold text-xl">Çështjet familjare</h3>
-            </div>
-            <span class="chevron-btn" data-arrow>
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </span>
-          </div>
-          <div class="service-content">
-            <p class="text-sm pt-4 leading-relaxed" style="color:var(--ink-soft);">Asistencë e plotë në divorc, kujdestari fëmijësh dhe çështje familjare të ndërlikuara.</p>
-          </div>
-        </div>
-
-        <div class="service-card panel p-6">
-          <div class="flex items-center justify-between gap-4 cursor-pointer" onclick="toggleDetails(this)">
-            <div class="flex items-center gap-4">
-              <span class="service-icon">
-                <svg class="w-6 h-6" fill="none" stroke="var(--gold)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M4 21V9l8-6 8 6v12M9 21v-6h6v6"/></svg>
-              </span>
-              <h3 class="font-display font-semibold text-xl">Çështjet administrative</h3>
-            </div>
-            <span class="chevron-btn" data-arrow>
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </span>
-          </div>
-          <div class="service-content">
-            <p class="text-sm pt-4 leading-relaxed" style="color:var(--ink-soft);">Përfaqësim në marrëdhëniet me institucionet shtetërore, me mbrojtje të plotë të të drejtave tuaja.</p>
-          </div>
-        </div>
-
-        <div class="service-card panel p-6">
-          <div class="flex items-center justify-between gap-4 cursor-pointer" onclick="toggleDetails(this)">
-            <div class="flex items-center gap-4">
-              <span class="service-icon">
-                <svg class="w-6 h-6" fill="none" stroke="var(--gold)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M12 2v4m0 12v4M4.9 4.9l2.8 2.8m8.6 8.6l2.8 2.8M2 12h4m12 0h4M4.9 19.1l2.8-2.8m8.6-8.6l2.8-2.8"/></svg>
-              </span>
-              <h3 class="font-display font-semibold text-xl">Veprat penale</h3>
-            </div>
-            <span class="chevron-btn" data-arrow>
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </span>
-          </div>
-          <div class="service-content">
-            <p class="text-sm pt-4 leading-relaxed" style="color:var(--ink-soft);">Mbrojtje kundër akuzave penale, si vjedhja, mashtrimi apo dëmtimi i pronës.</p>
-          </div>
-        </div>
-
-        <div class="service-card panel p-6">
-          <div class="flex items-center justify-between gap-4 cursor-pointer" onclick="toggleDetails(this)">
-            <div class="flex items-center gap-4">
-              <span class="service-icon">
-                <svg class="w-6 h-6" fill="none" stroke="var(--gold)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M3 3v18h18M7 15l4-4 3 3 5-6"/></svg>
-              </span>
-              <h3 class="font-display font-semibold text-xl">Prokurime publike</h3>
-            </div>
-            <span class="chevron-btn" data-arrow>
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </span>
-          </div>
-          <div class="service-content">
-            <p class="text-sm pt-4 leading-relaxed" style="color:var(--ink-soft);">Këshillim i specializuar për procedura prokurimi, në përputhje të plotë me ligjin.</p>
-          </div>
-        </div>
-
-        <div class="service-card panel p-6">
-          <div class="flex items-center justify-between gap-4 cursor-pointer" onclick="toggleDetails(this)">
-            <div class="flex items-center gap-4">
-              <span class="service-icon">
-                <svg class="w-6 h-6" fill="none" stroke="var(--gold)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M3 7h18v13H3V7zm0 0l3-4h12l3 4M9 11a3 3 0 006 0"/></svg>
-              </span>
-              <h3 class="font-display font-semibold text-xl">E drejta e punës</h3>
-            </div>
-            <span class="chevron-btn" data-arrow>
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </span>
-          </div>
-          <div class="service-content">
-            <p class="text-sm pt-4 leading-relaxed" style="color:var(--ink-soft);">Këshilla për kontrata pune, shkarkime dhe zgjidhje konfliktesh në punë.</p>
-          </div>
-        </div>
-
+        <button class="slide-nav prev" id="slidePrev" aria-label="E mëparshme">
+          <svg class="w-4 h-4" fill="none" stroke="var(--ink)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button class="slide-nav next" id="slideNext" aria-label="Tjetra">
+          <svg class="w-4 h-4" fill="none" stroke="var(--ink)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
       </div>
+
+      <div class="slide-dots" id="slideDots"></div>
     </section>
 
     <section id="testimonials" class="my-14 reveal">
@@ -797,20 +838,64 @@ document.querySelectorAll('.ring-wrap').forEach(ring => {
   ringObserver.observe(ring);
 });
 
-/* ---------- Service accordion ---------- */
-function toggleDetails(headerEl){
-  const card = headerEl.closest('.service-card');
-  const content = card.querySelector('.service-content');
-  const btn = card.querySelector('.chevron-btn');
-  const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
-  if(isOpen){
-    content.style.maxHeight = '0px';
-    btn.classList.remove('open');
-  } else {
-    content.style.maxHeight = content.scrollHeight + 'px';
-    btn.classList.add('open');
+/* ---------- Practice area slides ---------- */
+(function(){
+  const track = document.getElementById('slidesTrack');
+  const dotsWrap = document.getElementById('slideDots');
+  const prevBtn = document.getElementById('slidePrev');
+  const nextBtn = document.getElementById('slideNext');
+  if(!track) return;
+
+  const slides = track.querySelectorAll('.slide');
+  let index = 0;
+  let autoplayTimer = null;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+  const dots = dotsWrap.querySelectorAll('.slide-dot');
+
+  function render(){
+    track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
   }
-}
+  function goTo(i){
+    index = (i + slides.length) % slides.length;
+    render();
+    restartAutoplay();
+  }
+  function next(){ goTo(index + 1); }
+  function prev(){ goTo(index - 1); }
+
+  function startAutoplay(){
+    autoplayTimer = setInterval(() => { goTo(index + 1); }, 5500);
+  }
+  function restartAutoplay(){
+    clearInterval(autoplayTimer);
+    startAutoplay();
+  }
+
+  nextBtn.addEventListener('click', next);
+  prevBtn.addEventListener('click', prev);
+
+  let touchStartX = null;
+  track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive:true });
+  track.addEventListener('touchend', e => {
+    if(touchStartX === null) return;
+    const delta = e.changedTouches[0].clientX - touchStartX;
+    if(Math.abs(delta) > 45){ delta < 0 ? next() : prev(); }
+    touchStartX = null;
+  }, { passive:true });
+
+  track.closest('.slides-wrap').addEventListener('mouseenter', () => clearInterval(autoplayTimer));
+  track.closest('.slides-wrap').addEventListener('mouseleave', () => restartAutoplay());
+
+  render();
+  startAutoplay();
+})();
 
 /* ---------- Mobile menu ---------- */
 document.getElementById('menu-btn').addEventListener('click', () => {

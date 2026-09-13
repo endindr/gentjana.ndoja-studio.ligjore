@@ -467,34 +467,77 @@ footer{ background:var(--ink); color:#c7cbd3; }
       </div>
     </section>
 
-    <section class="my-10 reveal">
-      <div class="flex flex-wrap justify-center gap-10">
-        <div class="panel-soft flex flex-col items-center py-8 px-6">
-          <div class="ring-wrap" data-target="165" data-max="200" style="--offset:552;">
-            <svg viewBox="0 0 200 200">
-              <circle class="ring-track" cx="100" cy="100" r="88"/>
-              <circle class="ring-progress" cx="100" cy="100" r="88" stroke="var(--gold)"/>
-            </svg>
-            <div class="ring-label">
-              <span class="font-display font-semibold text-3xl">165</span>
-              <span class="text-xs mt-1 text-center" style="color:var(--ink-soft);">raste me<br>sukses</span>
-            </div>
+    <section class="my-16 reveal relative">
+  <!-- Subtle background glow behind the section -->
+  <div class="absolute inset-0 -z-10 flex justify-center items-center opacity-30 blur-3xl pointer-events-none">
+    <div class="w-72 h-72 rounded-full bg-amber-500/20"></div>
+    <div class="w-72 h-72 rounded-full bg-blue-500/20 -ml-20"></div>
+  </div>
+
+  <div class="flex flex-wrap justify-center gap-8 px-4">
+    
+    <!-- Card 1: Successful Cases -->
+    <div class="group relative panel-soft flex flex-col items-center py-10 px-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-amber-500/10 border border-slate-200/60 dark:border-slate-800 backdrop-blur-md">
+      
+      <!-- Ambient Glow Behind Ring -->
+      <div class="absolute w-32 h-32 rounded-full bg-amber-400/10 blur-xl group-hover:scale-150 transition-transform duration-500 pointer-events-none"></div>
+
+      <div class="ring-wrap relative z-10" data-target="165" data-max="200" style="--offset:552;">
+        <svg viewBox="0 0 200 200" class="w-44 h-44 drop-shadow-md">
+          <circle class="ring-track" cx="100" cy="100" r="88" stroke-width="12"/>
+          <circle class="ring-progress transition-all duration-1000 ease-out" cx="100" cy="100" r="88" stroke="var(--gold)" stroke-width="12" stroke-linecap="round"/>
+        </svg>
+
+        <div class="ring-label flex flex-col items-center justify-center">
+          <div class="flex items-baseline gap-1">
+            <span class="font-display font-extrabold text-4xl tracking-tight text-slate-900 dark:text-white group-hover:scale-110 transition-transform duration-300">165</span>
+            <span class="text-amber-500 font-bold text-lg">+</span>
           </div>
-        </div>
-        <div class="panel-soft flex flex-col items-center py-8 px-6">
-          <div class="ring-wrap" data-target="10" data-max="15" style="--offset:552;">
-            <svg viewBox="0 0 200 200">
-              <circle class="ring-track" cx="100" cy="100" r="88"/>
-              <circle class="ring-progress" cx="100" cy="100" r="88" stroke="var(--blue)"/>
-            </svg>
-            <div class="ring-label">
-              <span class="font-display font-semibold text-3xl">10+</span>
-              <span class="text-xs mt-1 text-center" style="color:var(--ink-soft);">vite<br>përvojë</span>
-            </div>
-          </div>
+          <span class="text-xs font-medium uppercase tracking-wider mt-2 text-center" style="color:var(--ink-soft);">
+            Raste me<br><strong class="text-slate-800 dark:text-slate-200">sukses</strong>
+          </span>
         </div>
       </div>
-    </section>
+
+      <!-- Live Indicator Badge -->
+      <div class="mt-6 inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-medium bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20">
+        <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+        98% Norma e fitores
+      </div>
+    </div>
+
+    <!-- Card 2: Years of Experience -->
+    <div class="group relative panel-soft flex flex-col items-center py-10 px-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/10 border border-slate-200/60 dark:border-slate-800 backdrop-blur-md">
+      
+      <!-- Ambient Glow Behind Ring -->
+      <div class="absolute w-32 h-32 rounded-full bg-blue-400/10 blur-xl group-hover:scale-150 transition-transform duration-500 pointer-events-none"></div>
+
+      <div class="ring-wrap relative z-10" data-target="10" data-max="15" style="--offset:552;">
+        <svg viewBox="0 0 200 200" class="w-44 h-44 drop-shadow-md">
+          <circle class="ring-track" cx="100" cy="100" r="88" stroke-width="12"/>
+          <circle class="ring-progress transition-all duration-1000 ease-out" cx="100" cy="100" r="88" stroke="var(--blue)" stroke-width="12" stroke-linecap="round"/>
+        </svg>
+
+        <div class="ring-label flex flex-col items-center justify-center">
+          <div class="flex items-baseline gap-1">
+            <span class="font-display font-extrabold text-4xl tracking-tight text-slate-900 dark:text-white group-hover:scale-110 transition-transform duration-300">10</span>
+            <span class="text-blue-500 font-bold text-lg">+</span>
+          </div>
+          <span class="text-xs font-medium uppercase tracking-wider mt-2 text-center" style="color:var(--ink-soft);">
+            Vite<br><strong class="text-slate-800 dark:text-slate-200">përvojë</strong>
+          </span>
+        </div>
+      </div>
+
+      <!-- Live Indicator Badge -->
+      <div class="mt-6 inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-medium bg-blue-500/10 text-blue-700 dark:text-blue-300 border border-blue-500/20">
+        <span class="w-2 h-2 rounded-full bg-blue-500 animate-ping"></span>
+        Përvojë e provuar
+      </div>
+    </div>
+
+  </div>
+</section>
 
    <section id="services" class="my-14 reveal">
   <h2 class="font-display font-semibold text-3xl md:text-4xl text-center mb-3">Fushat e praktikës</h2>
